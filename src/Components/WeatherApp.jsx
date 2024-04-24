@@ -9,9 +9,9 @@ import Cloud from "@mui/icons-material/Cloud";
 
 const WeatherApp = () => {
   return (
-    <>
-    <div className=" bg-blue-50 justify-self-center p-14 container"> 
-      <div id="mainContainer" className="flex flex-row justify-center rounded-lg shadow-lg shadow-slate-600  bg-white p-8 w-fit items-center ">
+    
+    <div className=" bg-blue-50 h-screen w-screen align-middle p-14 flex justify-center"> 
+      <div id="mainContainer" className="flex flex-row h-fit justify-center rounded-lg shadow-lg shadow-slate-600  bg-white p-8 w-fit items-center ">
 
                 <div id="leftContainer" className="flex flex-col p-10 gap-8 items-center">
                         
@@ -92,7 +92,7 @@ const WeatherApp = () => {
                 </div>
       </div>
     </div>  
-    </>
+    
   );
 };
 
