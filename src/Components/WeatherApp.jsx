@@ -5,10 +5,15 @@ import { LineChart } from '@mui/x-charts/LineChart';
 import ThunderstormIcon from '@mui/icons-material/Thunderstorm';
 import CloudIcon from '@mui/icons-material/Cloud';
 import Cloud from "@mui/icons-material/Cloud";
+import curr from "../apis/currentapi"
+import { useState } from "react";
 
 
 const WeatherApp = () => {
-  return (
+    const [ location, setLocation ] = useState("London")
+
+curr(location) 
+    return (
     
     <div className=" bg-blue-50 h-screen w-screen align-middle p-14 flex justify-center"> 
       <div id="mainContainer" className="flex flex-row h-fit justify-center rounded-lg shadow-lg shadow-slate-600  bg-white p-8 w-fit items-center ">
