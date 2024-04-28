@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CloudQueueIcon from '@mui/icons-material/CloudQueue';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { LineChart } from '@mui/x-charts/LineChart';
@@ -10,9 +10,20 @@ import { useState } from "react";
 
 
 const WeatherApp = () => {
-    const [ location, setLocation ] = useState("London")
+    const [ location, setLocation ] = useState("Mumbai")
 
-curr(location) 
+    const [data, setData] = useState("") 
+    useEffect(() => {
+        curr(location).then((response)=>{
+            setData(response)
+
+        })
+     
+    
+    }, [location])
+    
+    console.log(data)
+
     return (
     
     <div className=" bg-blue-50 h-screen w-screen align-middle p-14 flex justify-center"> 
@@ -22,14 +33,14 @@ curr(location)
                         
                         <div>  
                             <h>Your city</h>
-                            <input type="text" placeholder="London" className="pl-2 py-1 ml-2 border-2 rounded-md" />
+                            <input type="text" value={location} onChange={(e)=>{setLocation(e.target.value)}} placeholder="London" className="pl-2 py-1 ml-2 border-2 rounded-md" />
                         </div>
-                        <a className='text-gray-500'>5:05 PM, Mon, Nov 23,2020</a>
+                        <a className='text-gray-500'>{data?.current?.last_updated}</a>
                         <div className=" text-5xl font-semibold"> 
                             <CloudQueueIcon sx={{ fontSize: 80 }} />
                             <h> 72°F</h>
                         </div>
-                        <h className=" text-3xl font-bold">Cloudy</h>
+                        <h className=" text-3xl font-bold">{data?.current?.condition?.text}</h>
 
 
                         <div className="flex flex-row gap-10 text-gray-400">
