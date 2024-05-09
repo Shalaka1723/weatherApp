@@ -2,27 +2,45 @@ import React, { useEffect } from "react";
 import CloudQueueIcon from '@mui/icons-material/CloudQueue';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { LineChart } from '@mui/x-charts/LineChart';
-import ThunderstormIcon from '@mui/icons-material/Thunderstorm';
 import CloudIcon from '@mui/icons-material/Cloud';
 import Cloud from "@mui/icons-material/Cloud";
-import curr from "../apis/currentapi"
+//import getter from "../apis/currentapi"
 import { useState } from "react";
+import getData from "../apis/currentapi";
+import Fcard from "./Fcard";
+import getDataf from "../apis/forecastapi";
+
 
 
 const WeatherApp = () => {
-    const [ location, setLocation ] = useState("Mumbai")
-
-    const [data, setData] = useState("") 
-    useEffect(() => {
-        curr(location).then((response)=>{
-            setData(response)
-
+    
+    const[data,setData] = useState("")
+    let getter =()=>{
+        getData().then((result)=>{
+            setData(result)
         })
-     
-    
-    }, [location])
-    
+    }
+
+    useEffect(() => {
+        getter()
+    },[])
     console.log(data)
+
+    const[dataf,setDataf] = useState("")
+    let getterf =()=>{
+        getDataf().then((resultf)=>{
+            setDataf(resultf)
+        })
+    }
+
+    useEffect(() => {
+        getterf()
+    },[])
+    console.log(data)
+    console.log(data)
+
+
+
 
     return (
     
@@ -32,32 +50,32 @@ const WeatherApp = () => {
                 <div id="leftContainer" className="flex flex-col p-10 gap-8 items-center">
                         
                         <div>  
-                            <h>Your city</h>
-                            <input type="text" value={location} onChange={(e)=>{setLocation(e.target.value)}} placeholder="London" className="pl-2 py-1 ml-2 border-2 rounded-md" />
+                            <h1>Your city</h1>
+                            <input type="text" placeholder="London" className="pl-2 py-1 ml-2 border-2 rounded-md" />
                         </div>
-                        <a className='text-gray-500'>{data?.current?.last_updated}</a>
+                        <a className='text-gray-500'>{data?.location?.name}</a>
                         <div className=" text-5xl font-semibold"> 
                             <CloudQueueIcon sx={{ fontSize: 80 }} />
-                            <h> 72°F</h>
+                            <h1> {data?.current?.temp_c}°C</h1>
                         </div>
-                        <h className=" text-3xl font-bold">{data?.current?.condition?.text}</h>
+                        <h1 className=" text-3xl font-bold">{data?.current?.condition?.text}</h1>
 
 
                         <div className="flex flex-row gap-10 text-gray-400">
                             <div>
                                 <div className=""> Humidity </div>
-                                <div className="text-black pt-2 text-xl font-semibold"> 45% </div>
+                                <div className="text-black pt-2 text-xl font-semibold"> {data?.current?.humidity}% </div>
                             </div>
                             <div>
                                 <div className=""> Wind speed </div>
-                                <div className="text-black pt-2 text-xl font-semibold"> 19.2 km/j </div>
+                                <div className="text-black pt-2 text-xl font-semibold"> {data?.current?.wind_kph} Km/Hr </div>
                             </div>
                             
                         </div>
                 </div>
 
                 <div id="rightContainer" className=" pt-10">
-                <h className='text-gray-500 pl-12 text-lg'>Temperature</h>
+                <h1 className='text-gray-500 pl-12 text-lg'>Temperature</h1>
                     <div className="">
                         <LineChart
                         xAxis={[{ data: [ 3, 4, 6, 10] }]}
@@ -74,32 +92,16 @@ const WeatherApp = () => {
                     </div>
                     <div className="flex flex-row gap-2">
                         <div className="flex flex-col items-center text-white rounded bg-blue-400 p-6 px-12">
-                            <h>Today</h>
+                            <h1>Today</h1>
                             <CloudQueueIcon className="my-2" sx={{ fontSize: 30 }} />
-                            <h className=' font-thin text-sm'>Humidity</h>
-                            <h>30%</h>
+                            <h1 className=' font-thin text-sm'>{data?.current?.condition?.text}</h1>
+                            <h1>{data?.current?.temp_c}°C</h1>
                         </div>
                         
-                        <div className="flex flex-col items-center text-gray-500 rounded p-6 px-12">
-                            <h>Nov 24</h>
-                            <ThunderstormIcon className="my-2" sx={{ fontSize: 30 }} />
-                            <h className=' font-thin text-sm'>Humidity</h>
-                            <h>36%</h>
-                        </div>
-
-                        <div className="flex flex-col items-center text-gray-500 rounded p-6 px-12">
-                            <h>Nov 25</h>
-                            <WbSunnyIcon className="my-2" sx={{ fontSize: 30 }} />
-                            <h className=' font-thin text-sm'>Humidity</h>
-                            <h>20%</h>
-                        </div>
-
-                        <div className="flex flex-col items-center text-gray-500 rounded p-6 px-12">
-                            <h>Nov 26</h>
-                            <Cloud className="my-2" sx={{ fontSize: 30 }} />
-                            <h className=' font-thin text-sm'>Humidity</h>
-                            <h>15%</h>
-                        </div>
+                        <Fcard date={data?.forecast?.forecastday[1]?.date} condition={'Rainy'} temp={'30°C'} />
+                        <Fcard date={'11-05-2024'} condition={'Cloudy'} temp={'31°C'}  />
+                        <Fcard date={'12-05-2024'} condition={'Sunny'} temp={'30°C'}  />
+  
 
                     </div>
                 <div>
