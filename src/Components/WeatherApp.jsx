@@ -36,8 +36,10 @@ const WeatherApp = () => {
     useEffect(() => {
         getterf()
     },[])
-    console.log(data)
-    console.log(data)
+    console.log(dataf)
+    console.log(dataf.forecast)
+
+    let fcast= dataf?.forecast?.forecastday
 
 
 
@@ -78,11 +80,12 @@ const WeatherApp = () => {
                 <h1 className='text-gray-500 pl-12 text-lg'>Temperature</h1>
                     <div className="">
                         <LineChart
-                        xAxis={[{ data: [ 3, 4, 6, 10] }]}
+                        xAxis={[{ data: [ 0, 1, 2, 3] }]}
                         series={[
                             {
-                            data: [ 4, 4.5, 3.5, 6],
+                            data: [ data?.current?.temp_c, dataf?.forecast?.forecastday[1]?.day?.avgtemp_c, dataf?.forecast?.forecastday[2]?.day?.avgtemp_c, dataf?.forecast?.forecastday[3]?.day?.avgtemp_c],
                             area: true,
+                            
                             },
                         ]}
                         width={600}
@@ -98,9 +101,12 @@ const WeatherApp = () => {
                             <h1>{data?.current?.temp_c}°C</h1>
                         </div>
                         
-                        <Fcard date={data?.forecast?.forecastday[1]?.date} condition={'Rainy'} temp={'30°C'} />
-                        <Fcard date={'11-05-2024'} condition={'Cloudy'} temp={'31°C'}  />
-                        <Fcard date={'12-05-2024'} condition={'Sunny'} temp={'30°C'}  />
+
+
+                        <Fcard date={dataf?.forecast?.forecastday[1]?.date} condition={dataf?.forecast?.forecastday[1]?.day?.condition?.text} temp={dataf?.forecast?.forecastday[1]?.day?.avgtemp_c} />
+                        <Fcard date={dataf?.forecast?.forecastday[2]?.date} condition={dataf?.forecast?.forecastday[2]?.day?.condition?.text} temp={dataf?.forecast?.forecastday[2]?.day?.avgtemp_c} />
+                        <Fcard date={dataf?.forecast?.forecastday[3]?.date} condition={dataf?.forecast?.forecastday[3]?.day?.condition?.text} temp={dataf?.forecast?.forecastday[3]?.day?.avgtemp_c} />
+                        
   
 
                     </div>
