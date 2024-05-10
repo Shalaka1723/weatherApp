@@ -63,7 +63,7 @@ const WeatherApp = () => {
                         xAxis={[{ data: [ 0, 1, 2, 3] }]}
                         series={[
                             {
-                            data: [ data?.forecast?.forecastday[0]?.day?.avgtemp_c, data?.forecast?.forecastday[1]?.day?.avgtemp_c, data?.forecast?.forecastday[2]?.day?.avgtemp_c, data?.forecast?.forecastday[3]?.day?.avgtemp_c],
+                            data: [ data?.current?.temp_c, data?.forecast?.forecastday[1]?.day?.avgtemp_c, data?.forecast?.forecastday[2]?.day?.avgtemp_c, data?.forecast?.forecastday[3]?.day?.avgtemp_c],
                             area: true,
                             
                             },
