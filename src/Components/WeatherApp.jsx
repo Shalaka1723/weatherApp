@@ -28,13 +28,17 @@ const WeatherApp = () => {
     return (
     
     <div className=" bg-blue-50 h-screen w-screen align-middle p-14 flex justify-center"> 
-      <div id="mainContainer" className="flex flex-row h-fit justify-center rounded-lg shadow-lg shadow-slate-600  bg-white p-8 w-fit items-center ">
+      <div className="flex flex-col h-fit justify-center rounded-lg shadow-lg shadow-slate-600  bg-white p-8 w-fit items-center">
+      <h1 className=" text-4xl font-bold text-cyan-500 border-cyan-500">Mycity Weather Forecast</h1>
+
+      <div id="mainContainer" className="flex flex-row ">
+      
 
                 <div id="leftContainer" className="flex flex-col p-10 gap-8 items-center content-center">
                         
                         <div>  
                             <h1>Your city</h1>
-                            <input type="text" value={location} onChange={(e)=>{setLocation(e.target.value)}} placeholder="Type City Name" className="pl-2 py-1 ml-2 border-2 rounded-md" />
+                            <input type="text" value={location}  onChange={(e)=>{setLocation(e?.target?.value)}} placeholder="Type City Name" className="pl-2 py-1 ml-2 border-2 rounded-md" />
                         </div>
                         <a className='text-gray-500'>{data?.location?.name}</a>
                         <div className=" text-5xl font-semibold"> 
@@ -94,7 +98,8 @@ const WeatherApp = () => {
                 </div>
                 </div>
       </div>
-    </div>  
+    </div> 
+    </div> 
     
   );
 };
