@@ -6,17 +6,18 @@ import Fcard from "./Fcard";
 
 
 const WeatherApp = () => {
-    
+
+    const [ location, setLocation ] = useState("Mumbai")
     const[data,setData] = useState("")
     let getter =()=>{
-        getData().then((result)=>{
+        getData(location).then((result)=>{
             setData(result)
         })
     }
 
     useEffect(() => {
-        getter()
-    },[])
+        getter(location)
+    },[location])
     
     console.log(data)
     console.log(data.forecast)
@@ -33,7 +34,7 @@ const WeatherApp = () => {
                         
                         <div>  
                             <h1>Your city</h1>
-                            <input type="text" placeholder="London" className="pl-2 py-1 ml-2 border-2 rounded-md" />
+                            <input type="text" value={location} onChange={(e)=>{setLocation(e.target.value)}} placeholder="Type City Name" className="pl-2 py-1 ml-2 border-2 rounded-md" />
                         </div>
                         <a className='text-gray-500'>{data?.location?.name}</a>
                         <div className=" text-5xl font-semibold"> 
