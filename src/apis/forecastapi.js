@@ -1,11 +1,12 @@
 import axios from "axios";
 
-let getDataf = async ()=> {
+let getData = async ()=> {
 
-    const entryf = "http://api.weatherapi.com/v1/forecast.json?key=c9b13f3db6364503a04180031242504&q=London&days=4&aqi=yes&alerts=no"
-    const optionsf = {method: 'GET' , url: entryf}
-    let responsef = await axios.request(optionsf)
-    console.log(responsef.data)
-    return responsef.data
+    const entry = `http://api.weatherapi.com/v1/forecast.json?key=c9b13f3db6364503a04180031242504&q=London&days=4&aqi=yes&alerts=n`
+    const options = {method: 'GET' , url: entry}
+    let response = await axios.request(options)
+    console.log(response.data)
+    return response.data
 }
-export default getDataf;
+export default getData;
+
